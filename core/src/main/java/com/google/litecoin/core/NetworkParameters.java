@@ -45,7 +45,7 @@ public class NetworkParameters implements Serializable {
     /**
      * The alert signing key originally owned by Satoshi, and now passed on to Gavin along with a few others.
      */
-    public static final byte[] SATOSHI_KEY = Hex.decode("04fc9702847840aaf195de8442ebecedf5b095cdbb9bc716bda9110971b28a49e0ead8564ff0db22209e0374782c093bb899692d524e9d6a6956e7c5ecbcd68284");
+    public static final byte[] SATOSHI_KEY = Hex.decode("040184710fa689ad5023690c80f3a49c8f13f8d45b8c857fbcbc8bc4a8e4d3eb4b10f4d4604fa08dce601aaf0f470216fe1b51850b4acf21b179c45070ac7b03a9");
 
     /** The string returned by getId() for the main, production network where people trade things. */
     public static final String ID_PRODNET = "org.litecoin.production";
@@ -142,52 +142,51 @@ public class NetworkParameters implements Serializable {
             interval = INTERVAL;
             targetTimespan = TARGET_TIMESPAN;
             proofOfWorkLimit = Utils.decodeCompactBits(0x1e0fffffL);
-            acceptableAddressCodes = new int[] { 48 };
+            acceptableAddressCodes = new int[] { 35 };
             dumpedPrivateKeyHeader = 128;
-            addressHeader = 48;
-            if(type == 100) port = 10333;
-            else port = 9333;
-            packetMagic = 0xfbc0b6db;
+            addressHeader = 35;
+            if(type == 100) port = 17912;
+            else port = 7912;
+            packetMagic = 0x7defaced;
             genesisBlock.setDifficultyTarget(0x1e0ffff0L);
-            genesisBlock.setTime(1317972665L);
-            genesisBlock.setNonce(2084524493L);
-            genesisBlock.setMerkleRoot(new Sha256Hash("97ddfbbae6be97fd6cdf3e7ca13232a3afff2353e29badfab7f73011edd4ced9"));
+            genesisBlock.setTime(1368144664L);
+            genesisBlock.setNonce(731837L);
+            genesisBlock.setMerkleRoot(new Sha256Hash("b78f79f1d10029cc45ed3d5a1db7bd423d4ee170c03baf110a62565d16a21dca"));
             id = ID_PRODNET;
-            subsidyDecreaseBlockCount = 840000;
+            subsidyDecreaseBlockCount = 22471626;
             allowEmptyPeerChains = false;
             spendableCoinbaseDepth = 100;
             String genesisHash = genesisBlock.getHashAsString();
-            checkState(genesisHash.equals("12a765e31ffd4059bada1e25190f6e98c99d9714d334efa41a195a7e7e04bfe2"),
+            checkState(genesisHash.equals("19225ae90d538561217b5949e98ca4964ac91af39090d1a4407c892293e4f44f"),
                     genesisHash);
 
             // This contains (at a minimum) the blocks which are not BIP30 compliant. BIP30 changed how duplicate
             // transactions are handled. Duplicated transactions could occur in the case where a coinbase had the same
             // extraNonce and the same outputs but appeared at different heights, and greatly complicated re-org handling.
             // Having these here simplifies block connection logic considerably.
-            //checkpoints.put(91722, new Sha256Hash("00000000000271a2dc26e7667f8419f2e15416dc6955e5a6c6cdf3f2574dd08e"));
-            //checkpoints.put(91812, new Sha256Hash("00000000000af0aed4792b1acee3d966af36cf5def14935db8de83d6f9306f2f"));
-            //checkpoints.put(91842, new Sha256Hash("00000000000a4d0a398161ffc163c503763b1f4360639393e0e4c8e300e0caec"));
-            //checkpoints.put(91880, new Sha256Hash("00000000000743f190a18c5577a3c2d2a1f610ae9601ac046a38084ccb7cd721"));
-            //checkpoints.put(200000, new Sha256Hash("000000000000034a7dedef4a161fa058a2d67a173a90155f3a2fe6fc132e0ebf"));
+            checkpoints.put(27000, new Sha256Hash("0000000397e50d20f9a21f274b8787fa66ca1ebc208a1b7e5bc3a9a0e352350bd42e125"));
+            checkpoints.put(60000, new Sha256Hash("000046ca133f715de3f8d83965487002c9cc1cebe4bb0fc10a1155fc9a6d2767293b"));
+            checkpoints.put(216802, new Sha256Hash("00000c946c4bdb51a240a103059f69112f301995e3a293044d3a4eff8d4c95cb0a5e1"));
+            checkpoints.put(219638, new Sha256Hash("0000035fcdaff88c5b989895047f2be66948618feec9ceefaa947341c4f58c55d9362"));
         } else if (type == 3) {
             // Testnet3
             genesisBlock = createTestGenesis(this);
             id = ID_TESTNET;
             // Genesis hash is 000000000933ea01ad0ee984209779baaec3ced90fa3f408719526f8d77f4943
-            packetMagic = 0xfcc1b7dc;
+            packetMagic = 0x9defaced;
             interval = INTERVAL;
             targetTimespan = TARGET_TIMESPAN;
             proofOfWorkLimit = Utils.decodeCompactBits(0x1d00ffffL);
-            port = 19333;
-            addressHeader = 111;
-            acceptableAddressCodes = new int[] { 111 };
-            dumpedPrivateKeyHeader = 239;
+            port = 17912;
+            addressHeader = 112;
+            acceptableAddressCodes = new int[] { 112 };
+            dumpedPrivateKeyHeader = 128;
             genesisBlock.setTime(1320884152L);
             genesisBlock.setDifficultyTarget(0x1d018ea7L);
             genesisBlock.setNonce(3562614017L);
             allowEmptyPeerChains = true;
             spendableCoinbaseDepth = 100;
-            subsidyDecreaseBlockCount = 210000;
+            subsidyDecreaseBlockCount = 22471626;
             String genesisHash = genesisBlock.getHashAsString();
             //checkState(genesisHash.equals("000000000933ea01ad0ee984209779baaec3ced90fa3f408719526f8d77f4943"),
             //        genesisHash);
@@ -195,21 +194,21 @@ public class NetworkParameters implements Serializable {
             genesisBlock = createTestGenesis(this);
             id = ID_TESTNET;
             packetMagic = 0xfabfb5daL;
-            port = 18333;
-            addressHeader = 111;
+            port = 17912;
+            addressHeader = 112;
             interval = INTERVAL;
             targetTimespan = TARGET_TIMESPAN;
             proofOfWorkLimit = Utils.decodeCompactBits(0x1d0fffffL);
-            acceptableAddressCodes = new int[] { 111 };
-            dumpedPrivateKeyHeader = 239;
-            genesisBlock.setTime(1296688602L);
+            acceptableAddressCodes = new int[] { 112 };
+            dumpedPrivateKeyHeader = 128;
+            genesisBlock.setTime(1368187357L);
             genesisBlock.setDifficultyTarget(0x1d07fff8L);
-            genesisBlock.setNonce(384568319);
+            genesisBlock.setNonce(385607496);
             allowEmptyPeerChains = false;
             spendableCoinbaseDepth = 100;
-            subsidyDecreaseBlockCount = 210000;
+            subsidyDecreaseBlockCount = 22471626;
             String genesisHash = genesisBlock.getHashAsString();
-            checkState(genesisHash.equals("00000007199508e34a9ff81e6ec0c477a4cccff2a4767a8eee39c11db367b008"),
+            checkState(genesisHash.equals("000000062108bdd14b8452692b4c0f624d20c4d088d08646a630472345b25ec27034a28"),
                     genesisHash);
         } else if (type == -1) {
             genesisBlock = createGenesis(this);
@@ -247,7 +246,7 @@ public class NetworkParameters implements Serializable {
             Script.writeBytes(scriptPubKeyBytes, Hex.decode
                     ("41044870341873accab7600d65e204bb4ae47c43d20c562ebfbf70cbcb188da98dec8b5ccf0526c8e4d954c6b47b898cc30adf1ff77c2e518ddc9785b87ccb90b8cdac"));
             scriptPubKeyBytes.write(Script.OP_CHECKSIG);
-            t.addOutput(new TransactionOutput(n, t, Utils.toNanoCoins(50, 0), scriptPubKeyBytes.toByteArray()));
+            t.addOutput(new TransactionOutput(n, t, Utils.toNanoCoins(0, 0), scriptPubKeyBytes.toByteArray()));
         } catch (Exception e) {
             // Cannot happen.
             throw new RuntimeException(e);
@@ -279,8 +278,8 @@ public class NetworkParameters implements Serializable {
         return genesisBlock;
     }
 
-    public static final int TARGET_TIMESPAN = (int)(3.5 * 24 * 60 * 60);  // 3.5 days per difficulty cycle, on average.
-    public static final int TARGET_SPACING = (int)(2.5 * 60);  // 2.5 minutes per block.
+    public static final int TARGET_TIMESPAN = (int)(0.25 * 24 * 60 * 60);  // 3.5 days per difficulty cycle, on average.
+    public static final int TARGET_SPACING = (int)(0.5 * 60);  // 2.5 minutes per block.
     public static final int INTERVAL = TARGET_TIMESPAN / TARGET_SPACING;
     
     /**
@@ -293,7 +292,7 @@ public class NetworkParameters implements Serializable {
     /**
      * The maximum money to be generated
      */
-    public static final BigInteger MAX_MONEY = new BigInteger("84000000", 10).multiply(COIN);
+    public static final BigInteger MAX_MONEY = new BigInteger("11235813", 10).multiply(COIN);
 
     /** Returns whatever the latest testNet parameters are.  Use this rather than the versioned equivalents. */
     public static NetworkParameters testNet() {
